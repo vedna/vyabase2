@@ -1,0 +1,100 @@
+<div class="card">
+    <div class="card-header">
+      <i class="fa fa-bars"></i><strong>Add details</strong>
+      <span class="float-right">
+        <i class="fa fa-arrow-circle-left" aria-hidden="true" [routerLink]="['/students']" data-toggle="tooltip" title="Back" style="cursor: pointer;"></i>
+      </span>
+    </div>
+    <div class="card-body">
+        <form class="form-horizontal" [formGroup]="studentForm">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="form-group row mt-4">
+                        <div class="col-md-4 mb-4">
+                            <label>Full name<span class="reqField">*</span></label>
+                            <input class="form-control" formControlName="names" type="text" placeholder="Enter name" [ngClass]="{'is-invalid':submitted && f.names.errors}"/>
+                            <div *ngIf="submitted && f.names.errors" class="invalid-feedback">
+                                <div *ngIf="f.names.errors.required">
+                                    name is required
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 mb-4">
+                            <label>Roll no</label>
+                            <input class="form-control" formControlName="rollno" type="text" maxlength="10" [ngClass]="{ 'is-invalid':submitted && f.rollno.errors }" placeholder="rollno no"/>
+                            <div *ngIf="submitted && f.rollno.errors" class="invalid-feedback">
+                                <div *ngIf="f.rollno.errors.required">
+                                    Roll no. is required
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 mb-4">
+                            <label>Date of Birth <span class="reqField">*</span></label>
+                            <input class="form-control" formControlName="dob" type="date" [ngClass]="{ 'is-invalid':submitted && f.dob.errors }" placeholder="date of birth"/>
+                            <div *ngIf="submitted && f.dob.errors" class="invalid-feedback">
+                                <div *ngIf="f.dob.errors.required">
+                                    date of birth is required
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 mb-4 ">
+                            <label for="gender">Gender</label>
+                            <select class="form-control" formControlName="gender" [ngClass]="{ 'is-invalid':submitted && f.gender.errors }">
+                                <option value="default" disabled>Select gender</option>
+                                  <option value="male">Male</option>
+                                  <option value="female">Female</option>
+                            </select>
+                            <div *ngIf="submitted && f.gender.errors" class="invalid-feedback">
+                                <div *ngIf="f.gender.errors.required">
+                                  Select the gender
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 mb-4">
+                            <label>Blood group</label>
+                            <input class="form-control" formControlName="bloodgrp" type="text" [ngClass]="{ 'is-invalid':submitted && f.bloodgrp.errors }" placeholder="blood group"/>
+                            <div *ngIf="submitted && f.bloodgrp.errors" class="invalid-feedback">
+                                <div *ngIf="f.bloodgrp.errors.required">
+                                  consult is required
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 mb-4">
+                            <label>Email ID</label>
+                            <input class="form-control" formControlName="emails" type="email" [ngClass]="{ 'is-invalid':submitted && f.emails.errors }" placeholder="Email"/>
+                            <div *ngIf="submitted && f.emails.errors" class="invalid-feedback">
+                                <div *ngIf="f.emails.errors.required">
+                                    email is required
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 mb-4">
+                            <label>Mobile no</label>
+                            <input class="form-control" formControlName="mobile" type="number" maxlength="10" [ngClass]="{ 'is-invalid':submitted && f.mobile.errors }" placeholder="mobile no"/>
+                            <div *ngIf="submitted && f.mobile.errors" class="invalid-feedback">
+                                <div *ngIf="f.mobile.errors.required">
+                                    mobile no. is required
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 mb-4">
+                            <label>Current address</label>
+                            <input class="form-control" formControlName="address" type="text"  [ngClass]="{ 'is-invalid':submitted && f.address.errors }" placeholder="address"/>
+                            <div *ngIf="submitted && f.address.errors" class="invalid-feedback">
+                                <div *ngIf="f.address.errors.required">
+                                   address is required
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="card-footer">
+        <div class="float-left">
+            <button class="btn btn-sm btn-primary" type="submit" (click)="onFormSubmit(studentForm.value)">Save</button>&nbsp;
+            <button class="btn btn-sm btn-danger" type="reset" (click)="clearForm()">Cancel</button>
+        </div>
+    </div>
+</div>

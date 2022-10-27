@@ -1,0 +1,99 @@
+<div class="card">
+    <div class="card-header">
+      <i class="fa fa-bars"></i><strong>Add details</strong>
+      <span class="float-right">
+        <i class="fa fa-arrow-circle-left" aria-hidden="true" [routerLink]="['/clinic']" data-toggle="tooltip" title="Back" style="cursor: pointer;"></i>
+      </span>
+    </div>
+    <div class="card-body">
+        <form class="form-horizontal" [formGroup]="clinicForm">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="form-group row mt-4">
+                        <div class="col-md-4 mb-4">
+                            <label>Patient's Name<span class="reqField">*</span></label>
+                            <input class="form-control" formControlName="names" type="text" placeholder="Enter full name" [ngClass]="{'is-invalid':submitted && f.names.errors}"/>
+
+                            <div *ngIf="submitted && f.names.errors" class="invalid-feedback">
+                                <div *ngIf="f.names.errors.required">
+                                    name is required
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 mb-4 ">
+                            <label for="gender">Gender <span class="reqField">*</span></label>
+                            <select class="form-control" formControlName="gender" [ngClass]="{ 'is-invalid':submitted && f.gender.errors }">
+                                <option value="default" disabled>Select gender</option>
+                                  <option value="male">Male</option>
+                                  <option value="female">Female</option>
+                            </select>
+                            <div *ngIf="submitted && f.gender.errors" class="invalid-feedback">
+                                <div *ngIf="f.gender.errors.required">
+                                  Select the gender
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 mb-4">
+                            <label>Phone no</label>
+                            <input class="form-control" formControlName="phone" type="text" maxlength="10" placeholder="mobile no"/>
+                        </div>
+                        <div class="col-md-4 mb-4">
+                            <label>date of birth <span class="reqField">*</span></label>
+                            <input class="form-control" formControlName="dob" type="date" [ngClass]="{ 'is-invalid':submitted && f.dob.errors }" placeholder="date of birth"/>
+                            <div *ngIf="submitted && f.dob.errors" class="invalid-feedback">
+                                <div *ngIf="f.dob.errors.required">
+                                    date of birth is required
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4 mb-4">
+                            <label>Street add</label>
+                            <input class="form-control" formControlName="street" type="text" placeholder="street address"/>
+                        </div>
+                        <div class="col-md-4 mb-4">
+                            <label>City</label>
+                            <input class="form-control" formControlName="city" type="text" placeholder="city"/>
+                        </div>
+                        <div class="col-md-4 mb-4">
+                            <label>Zip code</label>
+                            <input class="form-control" formControlName="zipcode" type="text" maxlength="6" placeholder="zip code"/>
+                            
+                        </div>
+                        <div class="col-md-4 mb-4">
+                            <label>Insurance name</label>
+                            <input class="form-control" formControlName="insurance" type="text" placeholder="Insurance name"/>
+                        </div>
+                        <div class="col-md-4 mb-4">
+                            <label>Policy no</label>
+                            <input class="form-control" formControlName="policyno" type="text" placeholder="policy no"/>
+                            
+                        </div>
+                        <div class="col-md-4 mb-4 ">
+                            <label>Medical history</label>
+                            <select class="form-control" formControlName="medicalHistory" [ngClass]="{ 'is-invalid':submitted && f.medicalHistory.errors }">
+                                <option value="default" disabled>Select medical history</option>
+                                  <option value="anemia">Anemia</option>
+                                  <option value="asthama">Asthama</option>
+                                  <option value="diabetes">diabetes</option>
+                                  <option value="thyroid disease">thyroid disease</option>
+                                  <option value="others / no">others / no</option>
+                            </select>
+                            <div *ngIf="submitted && f.medicalHistory.errors" class="invalid-feedback">
+                                <div *ngIf="f.medicalHistory.errors.required">
+                                  Select your medical history
+                                </div>
+                            </div>
+                        </div> 
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="card-footer">
+        <div class="float-left">
+            <button class="btn btn-sm btn-primary" type="submit" (click)="onFormSubmit(clinicForm.value)">Save</button>&nbsp;
+            <button class="btn btn-sm btn-danger" type="reset" (click)="clearForm()">Cancel</button>
+        </div>
+    </div>
+</div>

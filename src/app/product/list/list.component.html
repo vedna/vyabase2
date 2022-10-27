@@ -1,0 +1,32 @@
+
+<div class="card">
+    <div class="card-header">
+        <i class="fa fa-align-justify"></i><strong>Product Details</strong>
+        <span class="float-right">
+        <i class=" fa fa-plus-circle mr-2" aria-hidden="true" [routerLink]="['/product/add-items']" data-toggle="tooltip" title="Add" style="cursor: pointer;"></i>
+        <i class=" fa fa-trash mr-2" aria-hidden="true" (click)="onDelete()" data-toggle="tooltip" title="Delete" style="cursor: pointer;"></i>
+    </span>
+    </div>
+</div>
+
+<ag-grid-angular
+ #agGrid
+ style="width: 100%; height: 500px;"
+ id="myGrid"
+ class="ag-theme-alpine"
+ [columnDefs]="columnDefs"
+ [rowData]="rowData"
+ [rowSelection]="rowSelection"
+ [enableSorting]="true"
+ [animateRows]="true"
+ [suppressRowClickSelection]="true"
+ [sideBar]="true"
+ [frameworkComponents]="frameworkComponents"
+ [defaultColDef]="defaultColDef"
+ (cellValueChanged)="onCellValueChanged($event)"
+    [pivotPanelShow]="true"
+    [pagination]="true"
+    paginationAutoPageSize=true
+    (gridReady)="onGridReady($event)"
+    (rowSelected)="onRowSelected($event)"
+></ag-grid-angular>

@@ -1,0 +1,201 @@
+<div class="row text-center">
+    <div class="col-md-4">
+      <div class="btn-group">
+        <div class="btn btn-primary" mwlCalendarPreviousView [view]="view" [(viewDate)]="viewDate"
+         (viewDateChange)="closeOpenMonthViewDay()"> Previous </div>
+        <div class="btn btn-outline-secondary" mwlCalendarToday [(viewDate)]="viewDate">Today</div>
+        <div class="btn btn-primary" mwlCalendarNextView [view]="view" [(viewDate)]="viewDate"
+          (viewDateChange)="closeOpenMonthViewDay()"> Next </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <h3>{{ viewDate | date: 'MMM d y'}}</h3>
+    </div>
+    <div class="col-md-4">
+      <div class="btn-group">
+        <div class="btn btn-primary" (click)="setView(CalendarView.Month)" [class.active]="view === CalendarView.Month">Month</div>
+        <div class="btn btn-primary" (click)="setView(CalendarView.Week)" [class.active]="view === CalendarView.Week">Week</div>
+        <div class="btn btn-primary" (click)="setView(CalendarView.Day)" [class.active]="view === CalendarView.Day"> Day </div>
+      </div>
+    </div>
+  </div>
+  <br />
+  <div [ngSwitch]="view">
+    <mwl-calendar-month-view *ngSwitchCase="CalendarView.Month" [viewDate]="viewDate" [events]="events" [refresh]="refresh"
+      [activeDayIsOpen]="activeDayIsOpen" (dayClicked)="dayClicked($event.day)" 
+      (eventTimesChanged)="eventTimesChanged($event)">
+    </mwl-calendar-month-view>
+    <mwl-calendar-week-view *ngSwitchCase="CalendarView.Week" [viewDate]="viewDate" [events]="events" [refresh]="refresh"
+       (eventTimesChanged)="eventTimesChanged($event)">
+    </mwl-calendar-week-view>
+    <mwl-calendar-day-view *ngSwitchCase="CalendarView.Day" [viewDate]="viewDate" [events]="events" [refresh]="refresh"
+      (eventTimesChanged)="eventTimesChanged($event)">
+    </mwl-calendar-day-view>
+  </div>
+  
+  
+  <br /><br /><br />
+  
+  <h3> Edit events
+    <!-- (click)="addEvent()" -->
+    <button class="btn btn-primary float-end" data-bs-toggle="modal" data-bs-target="#modalContent"> Add new</button>
+    <div class="clearfix"></div>
+  </h3>
+  
+  <div class="table-responsive">
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th>Title</th>
+          <th>Primary color</th>
+          <th>Text color</th>
+          <th>Starts at</th>
+          <th>Ends at</th>
+          <th>Remove</th>
+        </tr>
+      </thead>
+  
+      <tbody>
+        <tr *ngFor="let events of rowData">
+          <td>
+            <input type="text" class="form-control" id={{events.titlename}} value="{{events.titlename}}"  />
+          </td>
+          <td>
+            <input type="color" id={{events.primaryClr}} value="{{events.primaryClr}}" />
+          </td>
+          <td>
+            <input type="color" id={{events.textColor}} value="{{events.textColor}}" />
+            <!-- <input type="color" [ngModel]="events.color.textColor ?? '#1e90ff'"  /> -->
+          </td>
+          <td>
+            <input class="form-control"  mwlFlatpickr dateFormat="MMM-d-y H" altFormat="MMM/d/Y H" id={{events.strtDate}} value="{{events.strtDate}}" />
+          </td>
+          <td>
+            <input class="form-control"  id={{events.endDate}} value="{{events.endDate}}" mwlFlatpickr dateFormat="MMM-d-y H" altFormat="MMM/d/Y H" 
+              placeholder="Not set"/>
+          </td>
+          <td>
+            <button class="btn btn-info textcolor-white" > Edit </button> &nbsp;
+            <button class="btn btn-danger" (click)="onDelete(events.id)"> Delete </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- model -->
+  <div class="modal fade" id="modalContent" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="modalLabel">Add Events</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form [formGroup]="calenderForm">
+            <div class="form-group row mt-2">
+              <div class="col-md-12 mb-2">
+                <label>Title<span class="reqField">*</span></label>
+                <input class="form-control" formControlName="titlename" type="text" placeholder="Enter title" [ngClass]="{'is-invalid':submitted && f.titlename.errors}"/>
+                <div *ngIf="submitted && f.titlename.errors" class="invalid-feedback">
+                  <div *ngIf="f.titlename.errors.required">
+                      title is required
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-12 mb-2">
+                  <label>Start Date<span class="reqField">*</span></label>
+                  <input class="form-control" type="date" placeholder="start date" formControlName="strtDate" [ngClass]="{'is-invalid':submitted && f.strtDate.errors}"/>
+                  <div *ngIf="submitted && f.strtDate.errors" class="invalid-feedback">
+                    <div *ngIf="f.strtDate.errors.required">
+                      Start Date is required
+                    </div>
+                  </div>
+              </div>
+              <div class="col-md-12 mb-2">
+                  <label>End Date<span class="reqField">*</span></label>
+                  <input class="form-control" type="date" placeholder="End date" formControlName="endDate" [ngClass]="{'is-invalid':submitted && f.endDate.errors}"/>
+                  <div *ngIf="submitted && f.endDate.errors" class="invalid-feedback">
+                    <div *ngIf="f.endDate.errors.required">
+                        end date is required
+                    </div>
+                  </div>
+              </div>
+              <div class="col-md-12 mb-2">
+                  <label>Primary color<span class="reqField">*</span></label>
+                  <input class="form-control" type="color" placeholder="select color for default" formControlName="primaryClr" [ngClass]="{'is-invalid':submitted && f.primaryClr.errors}"/>
+                  <div *ngIf="submitted && f.primaryClr.errors" class="invalid-feedback">
+                    <div *ngIf="f.primaryClr.errors.required">
+                      primary color is required
+                    </div>
+                  </div>
+              </div>
+              <div class="col-md-12 mb-2">
+                  <label>Text color<span class="reqField">*</span></label>
+                  <input class="form-control" type="color" placeholder="select color for events" formControlName="textColor" [ngClass]="{'is-invalid':submitted && f.textColor.errors}"/>
+                  <div *ngIf="submitted && f.textColor.errors" class="invalid-feedback">
+                    <div *ngIf="f.textColor.errors.required">
+                      text color is required
+                    </div>
+                  </div>
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer ">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="clearForm()">Close</button>
+          <button type="button" class="btn btn-primary" (click)="onFormSubmit(calenderForm.value)">Submit</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- <ng-template #modalContent let-close="close">
+    <div class="modal-header">
+      <h5 class="modal-title">Event action occurred</h5>
+      <button type="button" class="close" > -->
+        <!-- (click)="close()" -->
+        <!-- <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <div class="row">
+        <div class="col-md-6 mx-3 my-2">
+          <div class="col-12">
+            <label>Title : </label>
+            <input type="text" placeholder="enter the event name">
+          </div>
+          <div class="col-12">
+            <label>Start date : </label>
+            <input type="date" placeholder="start date">
+          </div>
+          <div class="col-12">
+            <label>End date : </label>
+            <input type="date" placeholder="end date">
+          </div>
+          <div class="col-12">
+            <label>Primary color : </label>
+            <input type="color" placeholder="end date">
+          </div>
+          <div class="col-12">
+            <label>text color : </label>
+            <input type="color" placeholder="end date">
+          </div>
+        </div>
+      </div>
+      <div>
+        Action:
+        <pre>{{ modalData?.action }}</pre>
+      </div>
+      <div>
+        Event:
+        <pre>{{ modalData?.event | json }}</pre>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-outline-secondary" > -->
+        <!-- (click)="close()" -->
+        <!-- OK
+      </button>
+    </div>
+  </ng-template> -->

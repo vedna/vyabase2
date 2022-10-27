@@ -1,0 +1,76 @@
+<div class="animated fadeIn">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="card">
+          <div class="card-header">
+            <i class="fa fa-align-justify"></i><strong>Students List</strong>
+            <span class="float-right">
+              <i class="fa fa-plus-circle" aria-hidden="true" [routerLink]="['/students/add-student']" data-toggle="tooltip" title="Add" style="cursor: pointer;"></i>
+              <i class="fa fa-arrow-circle-right" aria-hidden="true" [routerLink]="['/students/grid']" data-toggle="tooltip" title="grid" style="cursor: pointer;"></i>
+              <i class="fa fa-arrow-circle-right" aria-hidden="true" [routerLink]="['/students/sampleslick']" data-toggle="tooltip" title="slick" style="cursor: pointer;"></i>
+              <i class="fa fa-arrow-circle-right" aria-hidden="true" [routerLink]="['/students/widgetgraph']" data-toggle="tooltip" title="widget" style="cursor: pointer;"></i>
+            </span>
+          </div>
+          <div class="card-body">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th></th>
+                  <th>Sno</th>
+                  <th>Name</th>
+                  <th>Phone</th>
+                  <th>Roll no</th>
+                  <th>Blood group</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let data of appointment; let i=index">
+                  <td>
+                    <span>
+                      <div class="btn-group master" dropdown>
+                        <label class="switch switch-label switch-pill switch-primary">
+                          <input type="checkbox" class="switch-input" [ngModel]="data.checked"
+                            (ngModelChange)="getSelectedId($event, data.id)" id="button-split" dropdownToggle
+                            aria-controls="dropdown-split" />
+                          <span class="switch-slider" data-checked="&#x2713;" data-unchecked="&#x2715;"></span>
+                        </label>
+                        <div>
+                          <ul id="dropdown-split" *dropdownMenu class="dropdown-menu  dropdown-menu-left" role="menu"
+                            aria-labelledby="button-split">
+                            <li role="menuitem" *ngIf="isChecked === true && id === data.id && checkedIdList.length === 1">
+                              <a class="dropdown-item" style="cursor: pointer;" (click)="onEdit(data.id)">Edit</a>
+                            </li>
+                            <li role="menuitem" *ngIf="isChecked === true && id === data.id && checkedIdList.length === 1">
+                              <a class="dropdown-item" style="cursor: pointer;" (click)="onView(data.id)">View</a>
+                            </li>
+                            <li role="menuitem" *ngIf="isChecked === true && id === data.id && checkedIdList.length === 1">
+                              <a class="dropdown-item" style="cursor: pointer;" (click)="deleteStudent(data.id)">Delete</a>
+                            </li>
+                          </ul>
+                        </div>
+                      </div>
+                    </span>
+                  </td>
+                  <td>{{i+1}}</td>
+                  <td>{{data.names | titlecase}}</td>
+                  <td>{{data.mobile}}</td>
+                  <td>{{data.rollno | titlecase}}</td>
+                  <td>{{data.bloodgrp}}</td>
+                </tr>
+              </tbody>
+            </table>
+            <ul class="pagination">
+              <li class="page-item"><a class="page-link" routerLink="#">Prev</a></li>
+              <li class="page-item active">
+                <a class="page-link" routerLink="#">1</a>
+              </li>
+              <li class="page-item"><a class="page-link" routerLink="#">2</a></li>
+              <li class="page-item"><a class="page-link" routerLink="#">3</a></li>
+              <li class="page-item"><a class="page-link" routerLink="#">4</a></li>
+              <li class="page-item"><a class="page-link" routerLink="#">Next</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

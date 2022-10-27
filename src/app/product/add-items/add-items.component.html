@@ -1,0 +1,67 @@
+<div class="card">
+    <div class="card-header">
+      <i class="fa fa-bars"></i><strong>Add Items</strong>
+      <span class="float-right">
+        <i class="fa fa-arrow-circle-left" aria-hidden="true" [routerLink]="['/product']" data-toggle="tooltip" title="Back" style="cursor: pointer;"></i>
+      </span>
+    </div>
+    <div class="card-body">
+        <form class="form-horizontal" [formGroup]="itemsForm">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="form-group row mt-4">
+                        <div class="col-md-4 mb-4 ">
+                            <label>Products<span class="reqField">*</span></label>
+                            <select class="form-control" placeholder="Select products" formControlName="productType" [ngClass]="{ 'is-invalid':submitted && f.productType.errors }">
+                                <option disabled>Select product</option>
+                                <option value="fruits">Fruit's</option>
+                                <option value="vegetable">vegiee's</option>
+                                <option value="greens">green's</option>
+                            </select>
+                            <div *ngIf="submitted && f.productType.errors" class="invalid-feedback">
+                                <div *ngIf="f.productType.errors.required">
+                                  Select the product
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 mb-4 ">
+                            <label>category<span class="reqField">*</span></label>
+                            <select class="form-control" formControlName="productList" [ngClass]="{ 'is-invalid':submitted && f.productList.errors }">
+                                <option disabled>Select categories</option>
+                                  <option value="banana">Banana</option>
+                                  <option value="coconut">Coconut</option>
+                                  <option value="potato">Potato</option>
+                                  <option value="tomato">Tomato</option>
+                                  <option value="mint">Mint</option>
+                                  <option value="broccoli">broccoli</option>
+                            </select>
+                            <div *ngIf="submitted && f.productList.errors" class="invalid-feedback">
+                                <div *ngIf="f.productList.errors.required">
+                                  Select categories
+                                </div>
+                            </div>
+                        </div> 
+                        <div class="col-md-4 mb-4">
+                            <label>Quantity</label>
+                            <input class="form-control" formControlName="quantity" type="text" maxlength="10" placeholder="quantities"/>
+                        </div>
+                        <div class="col-md-3 mb-4">
+                            <label>Units</label>
+                            <input class="form-control" formControlName="unit" type="text" maxlength="10" placeholder="Eg. kg"/>
+                        </div>
+                        <div class="col-md-4 mb-4">
+                            <label>Price</label>
+                            <input class="form-control" formControlName="price" type="number" placeholder="Price"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="card-footer">
+        <div class="float-left">
+            <button class="btn btn-sm btn-primary" type="submit" (click)="onFormSubmit(itemsForm.value)">Save</button>&nbsp;
+            <button class="btn btn-sm btn-danger" type="reset" (click)="clearForm()">Cancel</button>
+        </div>
+    </div>
+</div>

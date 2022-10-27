@@ -1,0 +1,54 @@
+<div class="card">
+    <div class="card-header">
+      <i class="fa fa-bars"></i><strong>Student details</strong>
+      <span class="float-right">
+        <i class="fa fa-arrow-circle-left" aria-hidden="true" [routerLink]="['/students']" data-toggle="tooltip" title="Back" style="cursor: pointer;"></i>
+      </span>
+    </div>
+    <div class="card-body">
+        <form class="form-horizontal" [formGroup]="studentForm">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="form-group row mt-4">
+                        <div class="col-md-4 mb-4">
+                            <label>Full name<span class="reqField">*</span></label>
+                            <input class="form-control" disabled formControlName="names" type="text" placeholder="Enter name">
+                        </div>
+                        <div class="col-md-4 mb-4">
+                            <label>Roll no</label>
+                            <input class="form-control" disabled formControlName="rollno" type="text" placeholder="rollno no"/>
+                        </div>
+                        <div class="col-md-4 mb-4">
+                            <label>Date of Birth <span class="reqField">*</span></label>
+                            <input class="form-control" disabled formControlName="dob" type="text" placeholder="date of birth"/>
+                        </div>
+                        <div class="col-md-4 mb-4 ">
+                            <label for="gender">Gender</label>
+                            <select class="form-control" disabled formControlName="gender">
+                                <option value="default" disabled>Select gender</option>
+                                  <option value="male">Male</option>
+                                  <option value="female">Female</option>
+                            </select>
+                        </div>
+                        <div class="col-md-4 mb-4">
+                            <label>Blood group</label>
+                            <input class="form-control" disabled formControlName="bloodgrp" type="text" placeholder="blood group"/>
+                        </div>
+                        <div class="col-md-4 mb-4">
+                            <label>Email ID</label>
+                            <input class="form-control" disabled formControlName="emails" type="email" placeholder="Email"/>
+                        </div>
+                        <div class="col-md-4 mb-4">
+                            <label>Mobile no</label>
+                            <input class="form-control" disabled formControlName="mobile" type="number"  placeholder="mobile no"/>
+                        </div>
+                        <div class="col-md-4 mb-4">
+                            <label>Current address</label>
+                            <input class="form-control" disabled formControlName="address" type="text" placeholder="address"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

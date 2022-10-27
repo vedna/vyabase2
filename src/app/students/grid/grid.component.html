@@ -1,0 +1,34 @@
+<div class="card">
+    <div class="card-header">
+        <i class="fa fa-align-justify"></i><strong>Student details</strong>
+        <span class="float-right">
+        <i class=" fa fa-arrow-circle-left mr-2" aria-hidden="true" [routerLink]="['/students']" data-toggle="tooltip" title="Back" style="cursor: pointer;"></i>
+        <i class=" fa fa-plus-circle mr-2" aria-hidden="true" [routerLink]="['/students/add-student']" data-toggle="tooltip" title="Add" style="cursor: pointer;"></i>
+        <i class=" fa fa-trash mr-2" aria-hidden="true" (click)="onDelete()" data-toggle="tooltip" title="Delete" style="cursor: pointer;"></i>
+    </span>
+    </div>
+</div>
+
+<ag-grid-angular
+ #agGrid
+ style="width: 100%; height: 400px;"
+ id="myGrid"
+ class="ag-theme-alpine"
+ [columnDefs]="columnDefs"
+ [defaultColDef]="defaultColDef"
+ [rowData]="rowData"
+ [rowSelection]="rowSelection"
+ [enableSorting]="true"
+ [animateRows]="true"
+ [suppressRowClickSelection]="true"
+ [frameworkComponents]="frameworkComponents"
+ (cellValueChanged)="onCellValueChanged($event)"
+    [pivotPanelShow]="pivotPanelShow"
+    [pagination]="true"
+    (gridReady)="onGridReady($event)"
+    (rowSelected)="onRowSelected($event)"
+></ag-grid-angular>
+
+
+
+
